@@ -1,0 +1,32 @@
+
+Statisk html
+	3 elementer
+		Code
+		Compile and run 
+		Output
+
+	RUST CODE ONLY :D
+
+Docker
+	Compile kode og kjøre
+	
+	docker run -it busybox sh
+	
+
+
+	https://www.katacoda.com/courses/docker/create-nginx-static-web-server
+
+
+
+docker -p 8080:80
+
+	eksponerer port 80 på 8080
+	send rust compiler på port 5000 
+
+
+-d
+	kjører i bakgrunn
+-p 
+	eksponerer port
+--name
+	gir navn	

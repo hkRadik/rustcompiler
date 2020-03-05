@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
+
+    <style>
+      body{
+        background: url('bg.jpg') no-repeat fixed;
+        font-family: Arial, Helvetica, sans-serif;
+      }
+      button{
+        background-color: blue; /* Green */
+        border: none;
+        color: white;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        font-size: 16px;
+      }
+      button:hover{
+        background-color: pink;
+        cursor:pointer;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      .header{
+        text-shadow: 5px 5px black;
+      }
+  
+      /* Style the header */
+      .header {
+        grid-area: header;
+        padding: 30px;
+        text-align: center;
+        font-size: 35px;
+        color:white;
+      }
+  
+      /* The grid container */
+      .grid-container {
+        display: grid;
+        grid-template-areas:
+          'header header '
+          'left right'
+          'footer footer';
+      }
+  
+      .left,
+      .right {
+        padding: 5px;
+      }
+  
+      /* Style the left column */
+      .left {
+        grid-area: left;
+        width: 100%;
+      }
+      .output{
+        background-color: black;
+        height: 500px;
+        max-height: 500px;
+        width: 900px;
+        max-width: 900px;
+        min-width: 900px;
+        padding: 5px;
+        overflow: scroll;
+      }
+  
+      /* Style the middle column */
+  
+      /* Style the right column */
+      .right {
+        grid-area: right;
+        color:white;
+        width: 100%;
+      }
+  
+      /* Style the footer */
+      .footer {
+        grid-area: footer;
+        background-color: #f1f1f1;
+        padding: 10px;
+        text-align: center;
+        color:black;
+      }
+  
+      .CodeMirror-scroll{
+          width: 900px !important;
+          min-width: 900px !important;
+          max-width: 900px !important;
+          height: 500px !important;
+          display: inline-block;
+          padding: 5px;
+          margin: 0px;
+          float: left;
+      }
+      .CodeMirror.cm-s-default{
+        height: 500px !important;
+      }
+
+  
+      /* Responsive layout - makes the three columns stack on top of each other instead of next to each other */
+      </style>
+    <!--
+      Notice the use of %PUBLIC_URL% in the tag above.
+      It will be replaced with the URL of the `public` folder during the build.
+      Only files inside the `public` folder can be referenced from the HTML.
+
+      Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
+      work correctly both with client-side routing and a non-root public URL.
+      Learn how to configure a non-root public URL by running `npm run build`.
+    -->
+    <title>Rust compiler</title>
+  </head>
+  <body>
+    <div id="root">
+    </div>
+    <!--
+      This HTML file is a template.
+      If you open it directly in the browser, you will see an empty page.
+
+      You can add webfonts, meta tags, or analytics to this file.
+      The build step will place the bundled scripts into the <body> tag.
+
+      To begin the development, run `npm start`.
+      To create a production bundle, use `npm run build`.
+    -->
+  </body>
+</html>

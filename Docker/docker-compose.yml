@@ -1,0 +1,32 @@
+version: '3.3'
+
+metadata :
+    name : online_rustc
+services:
+  sample:
+    container_name: react
+    build:
+      context: .
+      dockerfile: kompilator/Dockerfile
+    volumes:
+      - '.:/kompilator'
+      - '/kompilator/node_modules'
+    ports:
+      - '2001:2000'
+    environment:
+      - NODE_ENV=development
+    sample:
+      container_name: rustkompiler
+      build:
+        context: .
+        dockerfile: ./rustkompiler/Dockerfile
+      web:
+        image: nginx
+        volumes:
+          - ./rustkompiler
+        ports:
+          - "4000:80"
+        environment:
+          - NGINX_HOST=rust.c
+          - NGINX_PORT=80
+        command: /bin/bash -c "envsubst < /etc/nginx/conf.d/mysite.template > /etc/nginx/conf.d/default.conf && exec nginx -g 'daemon off;'"

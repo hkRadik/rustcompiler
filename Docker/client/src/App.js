@@ -14,7 +14,7 @@ class App extends Component {
     output : [], command : ""};*/
 
     this.state = {
-      code : 'fn main(){println!("{}", 123);}',
+      code : 'fn main(){\n\tprintln!("{}", 123);\n}',
       output : [] , 
       command : ""
     }
@@ -103,6 +103,8 @@ class App extends Component {
   getSpacedShit(string){
 
     let arr = string.split('');
+
+    if(arr[0] != ' ' && string.indexOf("|") > 0) arr[0] = <React.Fragment><ReactNbsp key={Math.random()}/><ReactNbsp key={Math.random()}/></React.Fragment>;
 
     for(let x = 0; x < arr.length; x++){
       if(arr[x] === " ") arr[x] = <ReactNbsp key={Math.random()}/>

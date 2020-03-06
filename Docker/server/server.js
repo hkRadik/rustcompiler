@@ -57,7 +57,7 @@ function execCmd(string, callback){
 function createFile(code, callback){
     fs.unlink('./main', (e) => {
         fs.writeFile('main.rs', code, () => {callback()});
-    })
+    });
 }
 
 function execFile(callback){

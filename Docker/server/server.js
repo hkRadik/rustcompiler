@@ -31,6 +31,29 @@ app.post("/compile", (req,res) => {
 
 });
 
+app.post("/command", (req,res) => {
+    
+    let cmd = req.body.command;
+
+    if(cmd === undefined || cmd === null) return res.status(400).json({error:"fakk off"});
+
+        execCmd(cmd, (status, output) => {
+            return res.status(status).json({output : output});
+        })
+});
+
+function execCmd(string, callback){
+    let shell = exec(string);
+
+    let out = "";
+
+    shell.stdout.on('data', (data) => out += data);
+    shell.stderr.on('data', (data) => out += data);
+    shell.on('exit', () => callback(200, out));
+}
+    
+
+
 function createFile(code, callback){
     fs.unlink('./main', (e) => {
         fs.writeFile('main.rs', code, () => {callback()});
@@ -51,9 +74,7 @@ function execFile(callback){
                     shell.stdout.on('data', (data) => d+=data);
                     shell.stderr.on('data', (data) => d+=data);        
                     shell.on('exit', () => {callback(200, d)});
-                } else {
-                    return callback(200, err2);
-                }
+                } else {return callback(200, err2);}
             });
         } else {
             const shell = exec('./main');

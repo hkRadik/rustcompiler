@@ -66,7 +66,28 @@
         max-width: 900px;
         min-width: 900px;
         padding: 5px;
+        overflow-y: scroll;
+      }
+
+      .terminal_input{
+        background-color: black;
+        width: 900px;
+        max-width: 900px;
+        min-width: 900px;
         overflow: scroll;
+        color: white;
+        height: 30px;
+        font-size: 15px;
+      }
+
+      input{
+        font-size: 15px;
+        height: 100%;
+        width: 98%;
+        outline: none;
+        background-color: transparent;
+        border: 0px solid;
+        color: white;
       }
   
       /* Style the middle column */
@@ -79,23 +100,13 @@
       }
   
       /* Style the footer */
-      .footer {
-        grid-area: footer;
-        background-color: #f1f1f1;
-        padding: 10px;
-        text-align: center;
-        color:black;
-      }
   
       .CodeMirror-scroll{
           width: 900px !important;
           min-width: 900px !important;
           max-width: 900px !important;
           height: 500px !important;
-          display: inline-block;
-          padding: 5px;
-          margin: 0px;
-          float: left;
+
       }
       .CodeMirror.cm-s-default{
         height: 500px !important;

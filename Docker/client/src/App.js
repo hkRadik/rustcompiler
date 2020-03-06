@@ -10,9 +10,15 @@ class App extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {code : 'use std::thread;fn main() {let mut threads = Vec::new();for i in 0..10 {threads.push(thread::spawn(move || {println!("Output from thread {}", i);}));}for thread in threads {let _ = thread.join();}}',
-    output : []};
-}
+    /*this.state = {code : 'use std::thread;fn main() {let mut threads = Vec::new();for i in 0..10 {threads.push(thread::spawn(move || {println!("Output from thread {}", i);}));}for thread in threads {let _ = thread.join();}}',
+    output : [], command : ""};*/
+
+    this.state = {
+      code : 'fn main(){println!("{}", 123);}',
+      output : [] , 
+      command : ""
+    }
+  } 
 
 
   render() {
@@ -32,7 +38,7 @@ class App extends Component {
           <div className="output">
             {
               this.state.output.map(item => (
-                <p key={Math.random()}> ~
+                <p key={Math.random()}>
                   {
                     this.createLine(item)
                   }
@@ -40,9 +46,39 @@ class App extends Component {
               ))
             }
           </div>
+          <div className="terminal_input">
+            <span> <ReactNbsp/>></span><input name="command" onKeyPress={b => {if(b.key ==='Enter') this.sendCmd()}} onChange={this.onChange} value={this.state.command}></input>
+          </div>
         </div>
       </div>
     );
+  }
+
+  onChange = event => {
+    this.setState({
+      [event.target.name] : event.target.value
+    })
+  }
+
+  sendCmd(){
+    this.setState({command : ""});
+    if(this.state.command.toLowerCase() === "clear") return this.setState({output : []});
+    this.setState(() => {
+      let output = this.state.output.concat('~$'+this.state.command);
+      return {code : this.state.code, output};
+      });
+
+    fetch("http://0.0.0.0:5000/command", {
+      method: "POST",
+      headers : {'Content-Type': 'application/json'},
+      body : JSON.stringify({command : this.state.command})})
+      .then(e => e.json())
+      .then(r => {
+        this.setState(state => {
+          let output = this.state.output.concat(r.output);
+          return {code : this.state.code, output};
+      })})
+      .catch(error => console.error('Error', error));
   }
 
   createLine(temp){
@@ -75,6 +111,11 @@ class App extends Component {
   }
 
   compile(){
+    this.setState(state => {
+      let output = this.state.output.concat(`~$rustc main.rs`);
+      return {code : this.state.code, output};
+      })
+
     fetch("http://0.0.0.0:5000/compile", {
       method: "POST",
       headers : {'Content-Type': 'application/json'},
@@ -85,7 +126,10 @@ class App extends Component {
           let output = this.state.output.concat(r.output);
           return {code : this.state.code, output};
       })})
-      .catch(error => console.error('Error', error));
+      .catch(error => this.setState(state => {
+        let output = this.state.output.concat(`Network Error`);
+        return {code : this.state.code, output};
+        }))
     }
 }
 
